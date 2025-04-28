@@ -37,4 +37,4 @@ def send_mail(recipient, subject, text, as_html=False):
 
 
 if __name__ == '__main__':
-    send_mail('sanzarmaratov588@gmail.com', 'hahaa', 'sigma mail smtp sent')
+    send_mail(SMTP_USER, 'Hahahahahahahahahh', 'sigma mail smtp sent')
