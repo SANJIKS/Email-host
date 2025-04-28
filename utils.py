@@ -23,9 +23,9 @@ def send_mail(recipient, subject, text, as_html=False):
         msg['To'] = recipient
         msg['Subject'] = subject
         if as_html:
-            msg.attach(MIMEText(text, 'html'))
+            msg.attach(MIMEText(text, 'html', _charset='utf-8'))
         else:
-            msg.attach(MIMEText(text, 'plain'))
+            msg.attach(MIMEText(text, 'plain', _charset='utf-8'))
 
         smtp_server.sendmail(SMTP_USER, recipient, msg.as_string())
 
