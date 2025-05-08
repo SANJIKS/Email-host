@@ -12,26 +12,19 @@ smtp_server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
 smtp_server.starttls()
 smtp_server.login(SMTP_USER, SMTP_PASSWORD)
 
-def send_mail(recipient, subject, text, as_html=False):
+def send_mail(recipient, subject, text, as_html=False, smtp_user=None, smtp_password=None):
     try:
         smtp_server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
         smtp_server.starttls()
-        smtp_server.login(SMTP_USER, SMTP_PASSWORD)
+        smtp_server.login(smtp_user, smtp_password)
 
         msg = MIMEMultipart()
-        msg['From'] = SMTP_USER
+        msg['From'] = smtp_user
         msg['To'] = recipient
         msg['Subject'] = subject
-        if as_html:
-            msg.attach(MIMEText(text, 'html', _charset='utf-8'))
-        else:
-            msg.attach(MIMEText(text, 'plain', _charset='utf-8'))
+        msg.attach(MIMEText(text, 'html' if as_html else 'plain', _charset='utf-8'))
 
-        smtp_server.sendmail(SMTP_USER, recipient, msg.as_string())
-
-    except Exception as e:
-        print(f"Ошибка при отправке письма: {e}")
-
+        smtp_server.sendmail(smtp_user, recipient, msg.as_string())
     finally:
         smtp_server.quit()
 
