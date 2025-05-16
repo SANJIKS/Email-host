@@ -8,8 +8,8 @@ app = FastAPI()
 def get_credentials_by_token(auth_header: str | None):
     if not auth_header or not auth_header.startswith("Bearer "):
         return {
-            "user": config("SMTP_DEFAULT_USER"),
-            "password": config("SMTP_DEFAULT_PASSWORD")
+            "user": config("SMTP_USER"),
+            "password": config("SMTP_PASSWORD")
         }
 
     token = auth_header.replace("Bearer ", "").strip()
